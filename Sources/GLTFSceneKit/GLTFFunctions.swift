@@ -54,6 +54,12 @@ func createNormal(_ v0: SCNVector3, _ v1: SCNVector3, _ v2: SCNVector3) -> SCNVe
     return normalize(n)
 }
 
+func createNormal(_ v0: SCNVector3, _ v1: SCNVector3) -> SCNVector3 {
+    let n = sub(v1, v0)
+    
+    return normalize(n)
+}
+
 func createVertexArray(from source: SCNGeometrySource) throws -> [SCNVector3] {
     if source.componentsPerVector != 3 {
         throw GLTFUnarchiveError.NotSupported("createVertexArray: only 3 component vector is supported: \(source.componentsPerVector)")
@@ -81,7 +87,20 @@ func createVertexArray(from source: SCNGeometrySource) throws -> [SCNVector3] {
 
 func createIndexArray(from element: SCNGeometryElement) -> [Int] {
     //var indices = [Int](repeating: 0, count: element.primitiveCount)
-    let indexCount = element.primitiveCount * 3  // FIXME: check primitiveType
+    
+    var indexCount = element.primitiveCount * 3  // FIXME: check primitiveType
+    
+    switch element.primitiveType {
+    case .line:
+        indexCount = element.primitiveCount * 2
+    case .point:
+        indexCount = element.primitiveCount
+    case .triangles:
+        indexCount = element.primitiveCount * 3
+    default:
+        break
+    }
+    
     var indices = [Int]()
     indices.reserveCapacity(indexCount)
     if element.bytesPerIndex == 2 {
