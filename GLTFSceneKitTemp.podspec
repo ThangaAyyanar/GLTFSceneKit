@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/ThangaAyyanar/GLTFSceneKit"
   s.license = "MIT"
   s.author = "magicien"
-  s.ios.deployment_target = "11.0"
+  s.ios.deployment_target = "9.1"
   s.osx.deployment_target = "10.13"
   s.source = { :git => "https://github.com/ThangaAyyanar/GLTFSceneKit.git", :tag => "#{s.version}" }
   s.source_files = "Sources/**/*.swift"

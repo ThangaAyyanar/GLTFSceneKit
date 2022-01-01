@@ -8,6 +8,7 @@
 
 import SceneKit
 
+@available(iOS 11.0, *)
 let attributeMap: [String: SCNGeometrySource.Semantic] = [
     "POSITION": SCNGeometrySource.Semantic.vertex,
     "NORMAL": SCNGeometrySource.Semantic.normal,
@@ -111,10 +112,12 @@ let keyPathMap: [String: String] = [
     typealias Image = UIImage
 #endif
 
+@available(iOS 11.0, *)
 public protocol GLTFCodable: Codable {
     func didLoad(by object: Any, unarchiver: GLTFUnarchiver)
 }
 
+@available(iOS 11.0, *)
 protocol GLTFPropertyProtocol: GLTFCodable {
     /** Dictionary object with extension-specific objects. */
     var extensions: GLTFExtension? { get }
@@ -123,6 +126,7 @@ protocol GLTFPropertyProtocol: GLTFCodable {
     var extras: GLTFExtras? { get }
 }
 
+@available(iOS 11.0, *)
 extension GLTFPropertyProtocol {
     func didLoad(by object: Any, unarchiver: GLTFUnarchiver) {
         if let extensions = self.extensions?.extensions {

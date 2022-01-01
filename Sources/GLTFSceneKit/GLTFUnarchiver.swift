@@ -18,9 +18,14 @@ let chunkTypeBIN = 0x004E4942 // "BIN"
 #if SWIFT_PACKAGE
 let bundle = Bundle.module
 #else
-let bundle = Bundle(for: GLTFUnarchiver.self)
+let bundle = Bundle(for: GLTFBundle.self)
 #endif
 
+public class GLTFBundle {
+    
+}
+
+@available(iOS 11.0, *)
 public class GLTFUnarchiver {
     private var directoryPath: URL? = nil
     private var json: GLTFGlTF! = nil
