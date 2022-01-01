@@ -11,7 +11,7 @@ import SceneKit
 @available(iOS 11.0, *)
 @objcMembers
 public class GLTFSceneSource : SCNSceneSource {
-    private var loader: GLTFUnarchiver! = nil
+    private var loader: GLTFUnarchiver? = nil
     
     public override init() {
         super.init()
@@ -56,7 +56,10 @@ public class GLTFSceneSource : SCNSceneSource {
     }
     
     public override func scene(options: [SCNSceneSource.LoadingOption : Any]? = nil) throws -> SCNScene {
-        let scene = try self.loader.loadScene()
+        guard let loader = self.loader else {
+            throw GLTFUnarchiveError.Unknown("Loader failed")
+        }
+        let scene = try loader.loadScene()
         #if SEEMS_TO_HAVE_SKINNER_VECTOR_TYPE_BUG
             let sceneData = NSKeyedArchiver.archivedData(withRootObject: scene)
             let source = SCNSceneSource(data: sceneData, options: nil)!
